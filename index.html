@@ -1,47 +1,743 @@
 <!DOCTYPE html>
 <html lang="en">
-</head>
-    <title>Canva Pro</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="canva.css">
-</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MegaETH Research Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #ECE8E8 0%, #DFD9D9 100%);
+            min-height: 100vh;
+            color: #19191A;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(25, 25, 26, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            padding: 16px 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: #19191A;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .brand-text {
+            height: 32px;
+            font-weight: bold;
+            color: #19191A;
+            font-size: 28px;
+        }
+
+        .header-title {
+            margin-left: 16px;
+        }
+
+        .header-title h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #19191A;
+        }
+
+        .header-title p {
+            font-size: 14px;
+            color: rgba(25, 25, 26, 0.7);
+            font-family: monospace;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .icon-button {
+            padding: 8px;
+            background: none;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .icon-button:hover {
+            background: rgba(25, 25, 26, 0.1);
+        }
+
+        /* Search Section */
+        .search-section {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(25, 25, 26, 0.2);
+            padding: 32px;
+            margin: 32px 0;
+        }
+
+        .search-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .search-header h2 {
+            font-size: 30px;
+            font-weight: bold;
+            color: #19191A;
+            margin-bottom: 12px;
+        }
+
+        .search-header p {
+            color: rgba(25, 25, 26, 0.7);
+            font-size: 18px;
+            font-family: monospace;
+        }
+
+        /* Search Bar */
+        .search-bar-container {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(25, 25, 26, 0.5);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            font-size: 18px;
+            border: 1px solid rgba(25, 25, 26, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            color: #19191A;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .search-input:focus {
+            outline: none;
+            ring: 2px solid rgba(25, 25, 26, 0.3);
+            border-color: rgba(25, 25, 26, 0.4);
+        }
+
+        .search-button {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #19191A;
+            color: white;
+            padding: 8px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            transition: all 0.2s;
+        }
+
+        .search-button:hover {
+            background: rgba(25, 25, 26, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .filter-tab {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: monospace;
+        }
+
+        .filter-tab.active {
+            background: #19191A;
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-tab:not(.active) {
+            background: rgba(255, 255, 255, 0.6);
+            color: rgba(25, 25, 26, 0.7);
+            border: 1px solid rgba(25, 25, 26, 0.2);
+        }
+
+        .filter-tab:not(.active):hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Sort Controls */
+        .sort-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .sort-select {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(25, 25, 26, 0.2);
+            border-radius: 8px;
+            color: #19191A;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .sort-select:focus {
+            outline: none;
+            ring: 2px solid rgba(25, 25, 26, 0.3);
+        }
+
+        /* Results */
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .results-header h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #19191A;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .results-header .time {
+            font-size: 14px;
+            color: rgba(25, 25, 26, 0.7);
+            font-family: monospace;
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(25, 25, 26, 0.2);
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: all 0.2s;
+        }
+
+        .result-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .result-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .result-icon {
+            padding: 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .result-icon.article {
+            background: rgba(25, 25, 26, 0.1);
+            color: #19191A;
+        }
+
+        .result-icon.post {
+            background: rgba(25, 25, 26, 0.2);
+            color: #19191A;
+        }
+
+        .result-title {
+            font-weight: 600;
+            color: #19191A;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin-bottom: 4px;
+        }
+
+        .result-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: rgba(25, 25, 26, 0.7);
+            font-family: monospace;
+        }
+
+        .result-excerpt {
+            color: rgba(25, 25, 26, 0.8);
+            line-height: 1.6;
+            margin-bottom: 16px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .result-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .result-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            background: rgba(25, 25, 26, 0.1);
+            color: rgba(25, 25, 26, 0.7);
+            font-size: 12px;
+            border-radius: 20px;
+            font-family: monospace;
+        }
+
+        .result-stats {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+            color: rgba(25, 25, 26, 0.7);
+            font-family: monospace;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: 64px 0;
+        }
+
+        .empty-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(25, 25, 26, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #19191A;
+            margin-bottom: 8px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .empty-state p {
+            color: rgba(25, 25, 26, 0.7);
+            font-family: monospace;
+        }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 64px 0;
+            gap: 16px;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 2px solid rgba(25, 25, 26, 0.2);
+            border-top: 2px solid #19191A;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            color: rgba(25, 25, 26, 0.7);
+            font-family: monospace;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .search-section {
+                padding: 24px;
+            }
+            
+            .filter-tabs {
+                justify-content: center;
+            }
+            
+            .sort-controls {
+                justify-content: center;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
 <body>
-    <img style="width: 200px; height: 200px; border-radius: 50%; margin-top: 10px;" src="https://pbs.twimg.com/profile_images/1861751545790070784/KvlxTzAq_400x400.jpg" alt="">
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo-section">
+                <div class="logo-container">
+                    <div class="logo">M</div>
+                    <div class="brand-text">MEGAETH</div>
+                </div>
+                <div class="header-title">
+                    <h1>Research Hub</h1>
+                    <p>Discover insights about the future of blockchain</p>
+                </div>
+            </div>
+            <div class="header-buttons">
+                <button class="icon-button">
+                    <i data-lucide="star" style="width: 20px; height: 20px; color: rgba(25, 25, 26, 0.7);"></i>
+                </button>
+                <button class="icon-button">
+                    <i data-lucide="filter" style="width: 20px; height: 20px; color: rgba(25, 25, 26, 0.7);"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
     <div class="container">
-        <h1 class="text-4xl font-HelveticaNeue relative top-[40px] leading-[100%] text-text4">Search for Blog Post about MegaETH</h1>
+        <div class="search-section">
+            <div class="search-header">
+                <h2>Search MegaETH Content</h2>
+                <p>Find the latest articles, posts, and research about MegaETH blockchain</p>
+            </div>
 
-        <p class="button-group">
-            <button><span class="fa fa-folder-open"></span> Your Posts</button>
-            <button><span class="fa fa-book"></span> Articles</button>
-            <button><span class="fa fa-magic"></span> Memes</button>
-        </p>
+            <div class="search-bar-container">
+                <i data-lucide="search" class="search-icon" style="width: 20px; height: 20px;"></i>
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    placeholder="Search articles, posts, and technical docs..."
+                    id="searchInput"
+                >
+                <button class="search-button" onclick="handleSearch()">
+                    <i data-lucide="search" style="width: 16px; height: 16px;"></i>
+                    Search
+                </button>
+            </div>
 
-        <div class="input-wrapper">
-            <span class="fa fa-search"></span>
-            <input type="text" placeholder="Search articles, posts and arts" />
-            <span id="one" class="fa fa-arrow-right"></span>
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="setActiveFilter('all', this)">
+                    <i data-lucide="book-open" style="width: 16px; height: 16px;"></i>
+                    All Content
+                </button>
+                <button class="filter-tab" onclick="setActiveFilter('articles', this)">
+                    <i data-lucide="book-open" style="width: 16px; height: 16px;"></i>
+                    Articles
+                </button>
+                <button class="filter-tab" onclick="setActiveFilter('posts', this)">
+                    <i data-lucide="twitter" style="width: 16px; height: 16px;"></i>
+                    Posts/Tweets
+                </button>
+                <button class="filter-tab" onclick="setActiveFilter('technical', this)">
+                    <i data-lucide="trending-up" style="width: 16px; height: 16px;"></i>
+                    Technical
+                </button>
+            </div>
+
+            <div class="sort-controls">
+                <select class="sort-select" id="sortBy">
+                    <option value="relevance">Sort by Relevance</option>
+                    <option value="date">Sort by Date</option>
+                    <option value="popularity">Sort by Popularity</option>
+                </select>
+                <select class="sort-select" id="dateRange">
+                    <option value="all">All Time</option>
+                    <option value="week">Past Week</option>
+                    <option value="month">Past Month</option>
+                    <option value="year">Past Year</option>
+                </select>
+            </div>
         </div>
 
+        <!-- Loading State -->
+        <div id="loadingState" class="loading hidden">
+            <div class="spinner"></div>
+            <span class="loading-text">Searching for content...</span>
+        </div>
 
-        <div class="button-icon">
-            <button><span class="fa fa-folder"></span></button>
-            <button><span class="fa fa-pencil"></span></button>
-            <button><span class="fa fa-book"></span></button>
-            <button><span class="fa fa-magic"></span></button>
-            <button><span class="fa fa-palette"></span></button>
-            <button><span class="fa fa-pen-to-square"></span></button>
-            <button><span class="fa fa-eye-slash"></span></button>
-            <button><span class="fa fa-camera"></span></button>
-            <!-- <button><span class="fab fa-facebook"></span></button>
-            <button><span class="fab fa-reddit"></span></button>
-            <button><span class="fab fa-instagram"></span></button> -->
-            <!-- <button><span class="fab fa-twitter"></span></button>
-            <button><span class="fab fa-slack"></span></button>
-            <button><span class="fab fa-google"></span></button>
-            <button><span class="fab fa-twitch"></span></button> -->
+        <!-- Results -->
+        <div id="resultsContainer" class="hidden">
+            <div class="results-header">
+                <h3 id="resultsCount">Found 0 results</h3>
+                <div class="time">Search completed in 0.84 seconds</div>
+            </div>
+            <div id="resultsContent"></div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state">
+            <div class="empty-icon">
+                <i data-lucide="search" style="width: 32px; height: 32px; color: #19191A;"></i>
+            </div>
+            <h3>Start Your Search</h3>
+            <p>Enter keywords to find relevant MegaETH content</p>
+        </div>
+
+        <!-- No Results State -->
+        <div id="noResultsState" class="empty-state hidden">
+            <div class="empty-icon">
+                <i data-lucide="search" style="width: 32px; height: 32px; color: rgba(25, 25, 26, 0.7);"></i>
+            </div>
+            <h3>No results found</h3>
+            <p>Try adjusting your search terms or filters</p>
         </div>
     </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Mock data
+        const mockResults = [
+            {
+                id: 1,
+                title: "MegaETH's Revolutionary Approach to Layer 2 Scaling",
+                excerpt: "Exploring how MegaETH is pushing the boundaries of Ethereum scaling with innovative consensus mechanisms and optimized transaction processing...",
+                type: "article",
+                source: "CryptoDaily",
+                author: "Sarah Chen",
+                date: "2025-07-25",
+                readTime: "8 min",
+                engagement: { views: 2400, likes: 156, shares: 89 },
+                tags: ["Layer 2", "Scaling", "Consensus"]
+            },
+            {
+                id: 2,
+                title: "Breaking: MegaETH announces $50M funding round",
+                excerpt: "Major breakthrough in funding as MegaETH secures significant investment to accelerate development of their high-performance blockchain...",
+                type: "post",
+                source: "Twitter",
+                author: "@blockchaininsider",
+                date: "2025-07-24",
+                readTime: "2 min",
+                engagement: { views: 8700, likes: 432, shares: 201 },
+                tags: ["Funding", "Investment", "News"]
+            },
+            {
+                id: 3,
+                title: "Technical Deep Dive: MegaETH's Consensus Algorithm",
+                excerpt: "An in-depth analysis of MegaETH's unique consensus mechanism and how it achieves sub-second finality while maintaining security...",
+                type: "article",
+                source: "Ethereum Research",
+                author: "Dr. Alex Kumar",
+                date: "2025-07-23",
+                readTime: "12 min",
+                engagement: { views: 1200, likes: 98, shares: 45 },
+                tags: ["Technical", "Consensus", "Research"]
+            }
+        ];
+
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        function formatNumber(num) {
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'k';
+            }
+            return num.toString();
+        }
+
+        function setActiveFilter(filter, element) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function showResults(results) {
+            const resultsContainer = document.getElementById('resultsContainer');
+            const resultsCount = document.getElementById('resultsCount');
+            const resultsContent = document.getElementById('resultsContent');
+            
+            resultsCount.textContent = `Found ${results.length} results`;
+            resultsContent.innerHTML = '';
+
+            results.forEach(result => {
+                const resultCard = document.createElement('div');
+                resultCard.className = 'result-card';
+                
+                resultCard.innerHTML = `
+                    <div class="result-header">
+                        <div class="result-info">
+                            <div class="result-icon ${result.type}">
+                                <i data-lucide="${result.type === 'article' ? 'book-open' : 'twitter'}" style="width: 16px; height: 16px;"></i>
+                            </div>
+                            <div>
+                                <div class="result-title">${result.title}</div>
+                                <div class="result-meta">
+                                    <span>${result.source}</span>
+                                    <span>•</span>
+                                    <span>${result.author}</span>
+                                    <span>•</span>
+                                    <div style="display: flex; align-items: center; gap: 4px;">
+                                        <i data-lucide="calendar" style="width: 12px; height: 12px;"></i>
+                                        <span>${result.date}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="icon-button">
+                            <i data-lucide="external-link" style="width: 16px; height: 16px; color: rgba(25, 25, 26, 0.7);"></i>
+                        </button>
+                    </div>
+                    <p class="result-excerpt">${result.excerpt}</p>
+                    <div class="result-footer">
+                        <div class="result-tags">
+                            ${result.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                        <div class="result-stats">
+                            <div class="stat">
+                                <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                                <span>${result.readTime}</span>
+                            </div>
+                            <div class="stat">
+                                <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                                <span>${formatNumber(result.engagement.views)}</span>
+                            </div>
+                            <div class="stat">
+                                <i data-lucide="star" style="width: 16px; height: 16px;"></i>
+                                <span>${formatNumber(result.engagement.likes)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                resultsContent.appendChild(resultCard);
+            });
+
+            // Reinitialize Lucide icons for new content
+            lucide.createIcons();
+            
+            resultsContainer.classList.remove('hidden');
+        }
+
+        function handleSearch() {
+            const input = document.getElementById('searchInput');
+            searchQuery = input.value.trim();
+            
+            // Hide all states
+            document.getElementById('emptyState').classList.add('hidden');
+            document.getElementById('noResultsState').classList.add('hidden');
+            document.getElementById('resultsContainer').classList.add('hidden');
+            
+            if (!searchQuery) {
+                document.getElementById('emptyState').classList.remove('hidden');
+                return;
+            }
+            
+            // Show loading
+            document.getElementById('loadingState').classList.remove('hidden');
+            
+            // Simulate API call
+            setTimeout(() => {
+                document.getElementById('loadingState').classList.add('hidden');
+                
+                if (mockResults.length > 0) {
+                    showResults(mockResults);
+                } else {
+                    document.getElementById('noResultsState').classList.remove('hidden');
+                }
+            }, 1000);
+        }
+
+        // Enter key handler
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+    </script>
 </body>
 </html>
